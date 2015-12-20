@@ -1,0 +1,4 @@
+package math
+
+func foo() {
+}
