@@ -24,6 +24,13 @@ Should result in an a.out of about 18kB. Then to make binary:
 
     arm-none-eabi-objcopy -o BINARY a.out
 
+Disassembly for verification:
+
+    arm-none-eabi-objdump --disassembler-options=force-thumb -S main.elf
+
+The binary will be constructed properly, but need to force-thumb when disassembling with objdump.
+
+
 TODO
 ====
 

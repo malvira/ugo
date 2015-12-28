@@ -13,7 +13,7 @@ go tool compile -pack math.go
 
 cd ..
 go tool compile main.go
-go tool link -T 0x8000008 -w -c -n -v -v -L runtime -L math -o main.elf main.o
+go tool link -T 0x8000000 -w -c -n -v -v -L runtime -L math -o main.elf main.o
 # use change addresses to offset to target arch memory (stm32 starts execution at 0x4
 # stm32 top of stack value is at 0x0
 # stm32 first instruction is at 0x4

@@ -48,12 +48,16 @@ func main() {
 	for {
 		*GPIOA_BRR = GPIO5 /* LED on */
 
-		for i := 0; i < 1000000; i ++ {
+		for i := 0; i < 254; i ++ {
+			for i := 0; i < 254; i ++ {
+			}
 		}
 		
 		*GPIOA_BSRR = GPIO5 /* LED off */
 
-		for i := 0; i < 1000000; i ++ {
+		for i := 0; i < 254; i ++ {
+			for i := 0; i < 254; i ++ {
+			}
 		}
 		
 	}
