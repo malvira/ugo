@@ -42,4 +42,19 @@ TODO
        locations. Or something like that
 
   * For now, can get by without an interrupt table and just put everything at the starting address (just to blink an LED)
-  
+
+ARM / Thumb
+
+https://www.altera.com/content/dam/altera-www/global/en_US/pdfs/literature/third-party/archives/ddi0100e_arm_arm.pdf
+
+f44f 6280       mov.w   r2, #1024       ; 0x400
+condition f will do thumb2. so need to implement this.
+seems to be f44f 6280       mov.w   r2, #1024       ; 0x400
+load/store immediate offset
+see page 68
+
+6280 f44f is op code according to
+https://www.onlinedisassembler.com/odaweb/
+
+this pdf has the T32 encoding
+http://vision.gel.ulaval.ca/~jflalonde/cours/1001/h15/docs/ARM_v7.pdf

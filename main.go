@@ -29,36 +29,42 @@ const GPIO5 = (uint32)(1 << 5)
 
 func gpio_init() {
 	RCC_AHB1ENR := MemLocation(uint32(RCC_BASE + 0x30))
-	
 	*RCC_AHB1ENR = (1 << 0)
 
-	GPIOA_CRH := MemLocation(uint32(GPIOA + 0x4))
+	GPIOA_MODER := MemLocation(uint32(GPIOA + 0x0))
+	*GPIOA_MODER = 1024
 
-	*GPIOA_CRH = GPIO_CNF_OUTPUT_PUSHPULL << (((8 - 8) * 4) + 2)
-	*GPIOA_CRH |= (GPIO_MODE_OUTPUT_2_MHZ << ((8 - 8) * 4))
 }
 
 func main() {
 
 	gpio_init()
 
+	// hack for alignment
+	// add an extra instruction to get the alignment at the word section correct
+	j := uint8(0x55)
+	j = j + j 
+	
 	GPIOA_BSRR := MemLocation(GPIOA + 0x18)
-	GPIOA_BRR := MemLocation(GPIOA + 0x14)
 	
 	for {
-		*GPIOA_BRR = GPIO5 /* LED on */
+		*GPIOA_BSRR = GPIO5 /* bit set */
 
 		for i := 0; i < 254; i ++ {
 			for i := 0; i < 254; i ++ {
 			}
 		}
-		
-		*GPIOA_BSRR = GPIO5 /* LED off */
+
+		// could work except don't have this instruction
+		// (which moves a 32-bit literal :(
+		// so need to come up with a way to do this.
+		*GPIOA_BSRR = (GPIO5 << 16) /* bit reset */
 
 		for i := 0; i < 254; i ++ {
 			for i := 0; i < 254; i ++ {
 			}
 		}
+
 		
 	}
 }
